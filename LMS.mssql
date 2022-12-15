@@ -1,0 +1,83 @@
+create table Book
+	(BookID         numeric(12,0) check (BookID > 0),
+	 BookTitle		varchar(255),
+	 primary key    (BookID)
+	);
+	
+create table Book_Author
+(
+	BookID         numeric(12,0)  check (BookID > 0),
+	FirstName		varchar(255) not null,
+	LastName		varchar(255) not null,
+	primary key (BookID,FirstName,LastName),
+	foreign key (BookID) references Book(BookID)
+
+	
+);
+
+	
+create table Publisher
+	(BookID         numeric(12,0) check (BookID > 0),
+	 PublisherName	varchar(255) ,
+	 Edition		numeric(3,2) not null check (Edition > 0.00),
+	 year			numeric(4,0) not null check (year < 2023),
+	 primary key    (BookID,PublisherName),
+	 foreign key (BookID) references Book(BookID) on delete set null
+	);
+
+Create table Journal
+(	
+	JournalID numeric(12,0) check (JournalID > 0),
+	JournalTitle varchar(255) not null,
+	primary key (JournalID)
+);
+
+Create table JournalIssue
+(
+	JournalIssueNo numeric(6,2) check (JournalIssueNo > 0.00),
+	PublicationDate			Date not null check (DATE_PART('year',PublicationDate::Date)< 2023),
+	JournalID 		numeric(12,0) check (JournalID > 0),
+	primary key(JournalIssueNo),
+	foreign key (JournalID) references Journal(JournalID) on delete set null
+	
+
+);
+
+
+Create table Article
+(	
+	ArticleName varchar(255),
+	JournalIssueNo numeric(6,2) check (JournalIssueNo > 0.00),
+	primary key(ArticleName,JournalIssueNo),
+	foreign key (JournalIssueNo) references JournalIssue(JournalIssueNo) on delete set null 
+);
+
+
+
+
+create table Magazine
+(	MagazineID numeric(12,0) check (MagazineID > 0),
+	MagazineName varchar(255),
+	primary key(MagazineID)
+);
+
+Create table MagazineIssue
+(
+	MagazineIssueNo numeric(6,2) check (MagazineID > 0.0),
+	MagazineIssueDate	Date not null check (DATE_PART('year',MagazineIssueDate::Date)< 2023),
+	MagazineID 		numeric(12,0) check(MagazineID > 0),
+	primary key(MagazineIssueNo),
+	foreign key (MagazineID) references Magazine(MagazineID) on delete set null
+);
+
+Create table MagazineIssue_Contributors(
+	MagazineIssueNo numeric(6,2) check(MagazineIssueNo > 0.00),
+	FirstName		varchar(255) ,
+	LastName		varchar(255) ,
+	field 			varchar(255) ,
+	primary key (MagazineIssueNo,FirstName,LastName,field),
+	foreign key (MagazineIssueNo) references MagazineIssue(MagazineIssueNo) on delete set null
+);
+
+
+
