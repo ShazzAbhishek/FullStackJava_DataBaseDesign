@@ -2,9 +2,10 @@ This is a Design of DataBase PostgreSQL.
 First the requiremnts are given in words. 
 The words are translated into the ER(Entity Relationship Diagram). 
 Optimization are done: Based on weak entity, strong entity, normalization, lossless decomposition, Extraneous Attributes, 
-scehema combination and reduction
-
+scehema combination and reduction.
 Keys: Foreign keys, composite keys, multivalued keys.
+
+Java Code is developed with front end containing Java Swing, backend: Java DataBase Connectivity. 
 
 
  
